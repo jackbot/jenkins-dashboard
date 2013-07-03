@@ -29,19 +29,29 @@
                 <h2><a href="{{url}}">{{name}}</a></h2>
 
                 <p class="jenkins-build-result">
-                  {{#if builds.0.building}}
-                    <a class="building" href="{{builds.0.url}}">building</a>
+                  {{#if builds}}
+
+                    {{#if builds.0.building}}
+                      <a class="building" href="{{builds.0.url}}">building</a>
+                    {{else}}
+                      <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
+                    {{/if}}
+
                   {{else}}
-                    <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
+                    <span class="amber">n/a</span>
                   {{/if}}
                 </p>
 
               </div>
 
               <div class="box-bottom">
-                <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
-                  {{builds.0.nice_timestamp}}
-                </p>
+                {{#if builds}}
+                  <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
+                    {{builds.0.nice_timestamp}}
+                  </p>
+                {{else}}
+                  <p class="jenkins-build-timestamp">No builds yet</p>
+                {{/if}}
 
                 <p class="jenkins-build-result-history">
                   {{#each builds}}

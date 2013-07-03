@@ -58,7 +58,7 @@ body {
 	padding-top: 10px;
 }
 
-.jenkins-build-result a {
+.jenkins-build-result a, .jenkins-build-result span {
 	font-weight: 700;
 	font-size: 25px;
 	text-transform: uppercase;
@@ -82,6 +82,7 @@ body {
 	-webkit-animation: pulsate 2s ease-out;
 	-webkit-animation-iteration-count: infinite;
 }
+.amber, .amber:hover { color: #F0D26E; }
 
 .passed:hover, .failed:hover, .building:hover, .unknown:hover {
 	text-decoration: none;
