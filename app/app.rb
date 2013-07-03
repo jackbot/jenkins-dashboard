@@ -28,7 +28,7 @@ class Dashboard < Sinatra::Base
       deets["builds"].each do |build|
         resp = jenkins_api_call(:get, "#{build['url']}/api/json")
 
-        this_project[:builds] << {:timestamp => resp["timestamp"], :nice_timestamp => time_ago_in_words(resp["timestamp"]), :url => resp["url"], :result => resp["result"]}
+        this_project[:builds] << {:timestamp => Time.at(resp["timestamp"].to_i/1000).strftime("%a %e %b %l:%M%P"), :nice_timestamp => time_ago_in_words(resp["timestamp"]), :url => resp["url"], :result => (resp["result"].nil?) ? nil : resp["result"].downcase, :building => resp["building"]}
 
         ctr += 1
         break if ctr == 5
@@ -47,6 +47,6 @@ class Dashboard < Sinatra::Base
   end
 
   get '/ajax' do
-    jenkins_projects.to_json
+    {"projects" => jenkins_projects}.to_json
   end
 end

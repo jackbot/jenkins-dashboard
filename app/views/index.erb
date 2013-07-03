@@ -8,64 +8,57 @@
     <link href="/stylesheets/bootstrap.css" rel="stylesheet">
     <link href="/stylesheets/dashboard.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/handlebars-1.0.0.min.js"></script>
     <script type="text/javascript" src="/javascripts/dashboard.js"></script>
   </head>
 
 
-  <body>
+  <body onload="Dashboard.init()">
 
-    <div class="container">
+    <script id="dashboard-template" type="text/x-handlebars-template">
 
-      <div class="row-fluid">
+      <div class="container">
 
-        <% @jenkins_projects.each do |project| %>
+        <div class="row-fluid">
 
-          <div class="box span<%= 12 / @jenkins_projects.each.count %>">
-            <div class="box-inner">
+          {{#each projects}}
 
-              <h2><a href="<%= project[:url] %>"><%= project[:name] %></a></h2>
+            <div class="box span4">
+              <div class="box-inner">
 
-              <p class="jenkins-build-result">
-                <% if project[:builds][0][:result].nil? %>
-                  <a class="building" href="<%= project[:builds][0][:url] %>">BUILDING</a>
-                <% elsif project[:builds][0][:result].downcase == "failure" %>
-                  <a class="failed" href="<%= project[:builds][0][:url] %>">FAILED</a>
-                <% elsif project[:builds][0][:result].downcase == "success" %>
-                  <a class="passed" href="<%= project[:builds][0][:url] %>">PASSED</a>
-                <% else %>
-                  <a class="unknown" href="<%= project[:builds][0][:url] %>"><%= project[:builds][0][:result] %></a>
-                <% end %>
-              </p>
+                <h2><a href="{{url}}">{{name}}</a></h2>
 
+                <p class="jenkins-build-result">
+                  {{#if builds.0.building}}
+                    <a class="building" href="{{builds.0.url}}">building</a>
+                  {{else}}
+                    <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
+                  {{/if}}
+                </p>
+
+              </div>
+
+              <div class="box-bottom">
+                <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
+                  {{builds.0.nice_timestamp}}
+                </p>
+
+                <p class="jenkins-build-result-history">
+                  {{#each builds}}
+                    <a class="{{result}}" href="{{url}}" title="{{timestamp}}">&#8226;</a>
+                  {{/each}}
+                </p>
+              </div>
             </div>
 
-            <div class="box-bottom">
-              <p class="jenkins-build-timestamp" title="<%= Time.at(project[:builds][0][:timestamp].to_i/1000).strftime("%a %e %b %l:%M%P") %>">
-                <%= project[:builds][0][:nice_timestamp] %>
-              </p>
+          {{/each}}
 
-              <p class="jenkins-build-result-history">
-                <% project[:builds].each do |build| %>
-                  <% if build[:result].nil? %>
-                    <% css_class = "building" %>
-                  <% elsif build[:result].downcase == "failure" %>
-                    <% css_class = "failed" %>
-                  <% elsif build[:result].downcase == "success" %>
-                    <% css_class = "passed" %>
-                  <% else %>
-                    <% css_class = "unknown" %>
-                  <% end %>
-
-                  <a class="<%= css_class %>" href="<%= build[:url] %>" title="<%= Time.at(project[:builds][0][:timestamp].to_i/1000).strftime("%a %e %b %l:%M%P") %>">&#8226;</a>
-                <% end %>
-              </p>
-            </div>
-          </div>
-
-        <% end %>
+        </div>
       </div>
-    </div>
+
+    </script>
+
+    <div id="rendered-body"></div>
 
   </body>
 </html>

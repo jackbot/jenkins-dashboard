@@ -25,4 +25,8 @@ module DashboardHelpers
     end
   end
 
+  def parameterise(string)
+    string.gsub(/\s+/, "_").downcase
+  end
+
 end

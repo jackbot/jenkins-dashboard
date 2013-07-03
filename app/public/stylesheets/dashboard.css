@@ -58,9 +58,10 @@ body {
 	padding-top: 10px;
 }
 
-.jenkins-build-result a, #deploying {
+.jenkins-build-result a {
 	font-weight: 700;
 	font-size: 25px;
+	text-transform: uppercase;
 }
 
 .jenkins-build-result-history {
@@ -73,8 +74,8 @@ body {
 	float: left;
 }
 
-.passed, .passed:hover { color: #9EC14A; }
-.failed, .failed:hover { color: #EB5721; }
+.success, .success:hover { color: #9EC14A; }
+.failure, .failure:hover { color: #EB5721; }
 .unknown, .unknown:hover { color: #F0C43D; }
 .building, .building:hover {
 	color: #0098DF;
