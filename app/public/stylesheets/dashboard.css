@@ -1,0 +1,95 @@
+html, body {
+    height: 100%;
+}
+
+h1, h2 {
+	margin-top: 0;
+	font-weight: 300;
+}
+
+body {
+	background-color: #EDECE4;
+	color: #474746;
+	font-family: "Roboto", sans-serif;
+}
+
+.container {
+	margin-top: 50px;
+}
+
+.row-fluid {
+	margin-bottom: 20px;
+}
+
+.box {
+	background-color: #FFFFFF;
+	border: 2px solid #ECEEE5;
+	min-height: 180px !important;
+}
+
+.box:hover {
+	border: 2px solid #E2E4DB;
+}
+
+.box-inner {
+	padding: 20px;
+}
+
+.box-bottom {
+	border-top: 2px solid #ECEEE5;
+	padding: 10px 20px 0 20px;
+}
+
+.box-bottom p {
+	color: #A8A8A8;
+	font-weight: 200;
+}
+
+.box h2 a {
+	color: #474746;
+}
+
+.box h2 a:hover {
+	text-decoration: none;
+}
+
+.jenkins-build-result {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.jenkins-build-result a, #deploying {
+	font-weight: 700;
+	font-size: 25px;
+}
+
+.jenkins-build-result-history {
+	text-align: right;
+	font-size: 30px;
+	float: right;
+}
+
+.jenkins-build-timestamp {
+	float: left;
+}
+
+.passed, .passed:hover { color: #9EC14A; }
+.failed, .failed:hover { color: #EB5721; }
+.unknown, .unknown:hover { color: #F0C43D; }
+.building, .building:hover {
+	color: #0098DF;
+	-webkit-animation: pulsate 2s ease-out;
+	-webkit-animation-iteration-count: infinite;
+}
+
+.passed:hover, .failed:hover, .building:hover, .unknown:hover {
+	text-decoration: none;
+}
+
+@-webkit-keyframes pulsate {
+	0% {  opacity: 0.5; }
+	50% { opacity: 1.0; }
+	100% {  opacity: 0.5; }
+}
+
+.clear { clear: both ; }
