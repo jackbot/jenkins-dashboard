@@ -25,7 +25,7 @@ Alternatively, point your nginx config to the `public` directory and you're good
 ![Screenshot](http://jackweeden.s3.amazonaws.com/github/jenkins-dash.png)
 
 
-##License
+## License
 ```
 Copyright 2013 Jack Weeden
 
