@@ -30,58 +30,62 @@
 
       <div class="container">
 
-        <!--<div class="row-fluid">-->
+        {{#each projects}}
 
-          {{#each projects}}
+          <div class="box">
+            <div class="box-inner">
 
-            <div class="box">
-              <div class="box-inner">
+              <div class="box-top">
 
-                <div class="box-top">
+                <h1><a href="{{url}}">{{name}}</a></h1>
 
-                  <h2><a href="{{url}}">{{name}}</a></h2>
-
-                  <p class="jenkins-build-result">
-                    {{#if builds}}
-
-                      {{#if builds.0.building}}
-                        <a class="building" href="{{builds.0.url}}">building</a>
-                      {{else}}
-                        <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
-                      {{/if}}
-
-                    {{else}}
-                      <span class="amber">n/a</span>
-                    {{/if}}
-                  </p>
-                </div>
-
-                <div class="box-bottom">
+                <p class="jenkins-build-result">
                   {{#if builds}}
-                    <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
-                      {{builds.0.nice_timestamp}}
-                    </p>
+
+                    {{#if builds.0.building}}
+                      <a class="building" href="{{builds.0.url}}">building</a>
+                    {{else}}
+                      <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
+                    {{/if}}
+
                   {{else}}
-                    <p class="jenkins-build-timestamp">No builds yet</p>
+                    <span class="amber">n/a</span>
                   {{/if}}
+                </p>
+              </div>
 
-                  <p class="jenkins-build-result-history">
-                    {{#each builds}}
-                      <a class="{{result}}" href="{{url}}" title="{{timestamp}}">&#8226;</a>
-                    {{/each}}
+              <div class="box-bottom">
+                {{#if builds}}
+                  <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
+                    {{builds.0.nice_timestamp}}
                   </p>
+                {{else}}
+                  <p class="jenkins-build-timestamp">No builds yet</p>
+                {{/if}}
 
-                  <div class="clear"></div>
-                </div>
+                <p class="jenkins-build-result-history">
+                  {{#each builds}}
+                    {{#if building}}
+                      <a class="building" href="{{url}}" title="{{timestamp}}">&#8226;</a>
+                    {{else}}
+                      <a class="{{result}}" href="{{url}}" title="{{timestamp}}">&#8226;</a>
+                    {{/if}}
 
+                  {{/each}}
+                </p>
+
+                <div class="clear"></div>
               </div>
 
             </div>
 
-          {{/each}}
+          </div>
 
-        </div>
-      <!--</div>-->
+        {{/each}}
+
+        <div class="clear"></div>
+
+      </div>
 
     </script>
 
