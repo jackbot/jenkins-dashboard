@@ -17,35 +17,39 @@ class Dashboard < Sinatra::Base
 
 
   def jenkins_projects
-    projects_resp = jenkins_api_call(:get, "#{ENV['JENKINS_URL']}/api/json")
+    response = jenkins_api_call(:get, "#{ENV['JENKINS_URL']}/api/json")
 
-    return projects_resp if projects_resp[:error]
+    return response if response[:error]
 
     projects = []
 
-    projects_resp['jobs'].each do |project|
-      deets = jenkins_api_call(:get, "#{project['url']}/api/json")
-      this_project = {:name => deets["name"], :url => deets["url"], :builds => []}
+    response['jobs'].each do |project|
+      project_details = jenkins_api_call(:get, "#{project['url']}/api/json")
 
-      ctr = 0
-      deets["builds"].each do |build|
-        resp = jenkins_api_call(:get, "#{build['url']}/api/json")
+      this_project = {:name => project_details["name"], :url => project_details["url"], :builds => []}
 
-        this_project[:builds] << {:timestamp => Time.at(resp["timestamp"].to_i/1000).strftime("%a %e %b %l:%M%P"), :nice_timestamp => time_ago_in_words(resp["timestamp"]), :url => resp["url"], :result => (resp["result"].nil?) ? nil : resp["result"].downcase, :building => resp["building"]}
+      project_details["builds"].each_with_index do |build, index|
+        response = jenkins_api_call(:get, "#{build['url']}/api/json")
+        next if response[:error]
 
-        ctr += 1
-        break if ctr == 5
+        this_project[:builds] << {
+          :timestamp => Time.at(response["timestamp"].to_i/1000).strftime("%a %e %b %l:%M%P"),
+          :nice_timestamp => time_ago_in_words(response["timestamp"]),
+          :url => response["url"],
+          :result => (response["result"].nil?) ? nil : response["result"].downcase,
+          :building => response["building"]
+        }
+
+        break if index == 4
       end
 
       projects << this_project
-
     end
 
     {:projects => projects}
   end
 
   get '/' do
-    @jenkins_projects = jenkins_projects
     erb :index
   end
 
