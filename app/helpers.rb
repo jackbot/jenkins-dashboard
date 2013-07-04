@@ -6,16 +6,15 @@ module DashboardHelpers
   end
 
   def time_ago_in_words(time)
-    current_time = Time.now.to_i
-    delta = current_time - (time.to_i / 1000)
+    delta = Time.now.to_i - (time.to_i / 1000)
 
     if delta < 5
       "just now"
-    elsif delta < 60
+    elsif delta < 120
       "about a minute ago"
     elsif delta < 3600
       minutes = delta / 60
-      "about #{minutes} #{(minutes > 1) ? 'minutes' : 'minute'} ago"
+      "about #{minutes} minutes ago"
     elsif delta < 86400
       hours = delta / 60 / 60
       "about #{hours} #{(hours > 1) ? 'hours' : 'hour'} ago"
@@ -23,10 +22,6 @@ module DashboardHelpers
       days = delta / 60 / 60 / 24
       "about #{days} #{(days > 1) ? 'days' : 'day'} ago"
     end
-  end
-
-  def parameterise(string)
-    string.gsub(/\s+/, "_").downcase
   end
 
 end
