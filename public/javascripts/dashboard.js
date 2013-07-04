@@ -18,7 +18,7 @@ var Dashboard = {
     Dashboard.spinner = document.getElementById("spinner");
 
     Dashboard.update();
-    // setInterval(Dashboard.update, Dashboard.refreshTimeout);
+    setInterval(Dashboard.update, Dashboard.refreshTimeout);
   },
 
   renderBody: function(e) {
