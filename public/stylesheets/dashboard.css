@@ -143,28 +143,28 @@ a {
 
 @media screen and (max-width: 320px) {
 	.box { width: 100%; }
-	.jenkins-build-result a { font-size: 40px; }
+	.jenkins-build-result a, .jenkins-build-result span { font-size: 40px; }
 	.jenkins-build-result-history { display: block; text-align: center; }
 	.jenkins-build-timestamp { display: block; text-align: center; }
 	.container { padding: 10px 0; }
 }
 @media screen and (min-width: 321px) and (max-width: 639px) {
 	.box { width: 100%; }
-	.jenkins-build-result a { font-size: 40px; }
+	.jenkins-build-result a, .jenkins-build-result span { font-size: 40px; }
 	.jenkins-build-result-history { float: right; }
 	.jenkins-build-timestamp { float: left; }
 	.container { padding: 10px 0; }
 }
 @media screen and (min-width: 640px) and (max-width: 959px) {
 	.box { width: 50%; }
-	.jenkins-build-result a { font-size: 40px; }
+	.jenkins-build-result a, .jenkins-build-result span { font-size: 40px; }
 	.jenkins-build-result-history { float: right; }
 	.jenkins-build-timestamp { float: left; }
 	.container { padding-top: 50px; }
 }
 @media screen and (min-width: 960px) and (max-width: 1279px) {
 	.box { width: 33.33%; }
-	.jenkins-build-result a { font-size: 35px; }
+	.jenkins-build-result a, .jenkins-build-result span { font-size: 35px; }
 	.jenkins-build-result-history { display: block; text-align: center; }
 	.jenkins-build-timestamp { display: block; text-align: center; }
 	.container { padding-top: 50px; }
@@ -172,7 +172,7 @@ a {
 @media screen and (min-width: 1280px) and (max-width: 5000px) {
 	.box { width: 33.33%; }
 	.jenkins-build-result { margin-top: 30px; }
-	.jenkins-build-result a { font-size: 45px; }
+	.jenkins-build-result a, .jenkins-build-result span { font-size: 45px; }
 	.jenkins-build-result-history { float: right; }
 	.jenkins-build-timestamp { float: left; }
 	.container { padding-top: 50px; }
