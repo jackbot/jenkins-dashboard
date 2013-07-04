@@ -1,8 +1,14 @@
 module DashboardHelpers
 
   def jenkins_api_call(method, endpoint)
-    resp = HTTParty.send(method.to_s, endpoint, :basic_auth => {:username => ENV["JENKINS_API_USER"], :password => ENV["JENKINS_API_PASSWORD"]})
-    JSON.parse(resp.body)
+    begin
+      response = HTTParty.send(method.to_s, endpoint, :basic_auth => {:username => ENV["JENKINS_API_USER"], :password => ENV["JENKINS_API_PASSWORD"]})
+      JSON.parse(response.body)
+    rescue SocketError => e
+      {:error => true, :message => "Socket Error: Is your Jenkins URL (#{ENV['JENKINS_URL']}) correct?", :full_message => e.message, :backtrace => e.backtrace.join($/)}
+    rescue Exception => e
+      {:error => true, :message => "Jenkins API error", :full_message => e.message, :backtrace => e.backtrace.join($/)}
+    end
   end
 
   def time_ago_in_words(time)

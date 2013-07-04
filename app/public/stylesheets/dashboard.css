@@ -126,6 +126,26 @@ a {
 	left: 48%;
 }
 
+#error {
+	width: 50%;
+	margin: 50px auto;
+}
+
+#error p {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+#error #error-message {
+	margin-top: 40px;
+}
+
+#error #error-full-message {
+	background: #474746;
+	margin-top: 40px;
+	padding: 25px;
+	color: #FFFFFF;
+}
 
 @media screen and (max-width: 320px) {
 	.box { width: 250px; }

@@ -17,10 +17,13 @@ class Dashboard < Sinatra::Base
 
 
   def jenkins_projects
-    projects_resp = jenkins_api_call(:get, "#{ENV['JENKINS_URL']}/api/json")['jobs']
+    projects_resp = jenkins_api_call(:get, "#{ENV['JENKINS_URL']}/api/json")
+
+    return projects_resp if projects_resp[:error]
+
     projects = []
 
-    projects_resp.each do |project|
+    projects_resp['jobs'].each do |project|
       deets = jenkins_api_call(:get, "#{project['url']}/api/json")
       this_project = {:name => deets["name"], :url => deets["url"], :builds => []}
 
@@ -38,7 +41,7 @@ class Dashboard < Sinatra::Base
 
     end
 
-    projects
+    {:projects => projects}
   end
 
   get '/' do
@@ -47,6 +50,7 @@ class Dashboard < Sinatra::Base
   end
 
   get '/ajax' do
-    {"projects" => jenkins_projects}.to_json
+    puts jenkins_projects.inspect
+    jenkins_projects.to_json
   end
 end

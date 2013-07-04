@@ -1,6 +1,7 @@
 var Dashboard = {
   request: null,
   template: null,
+  errorTemplate: null,
   spinner: null,
   refreshTimeout: 10000,
 
@@ -11,6 +12,9 @@ var Dashboard = {
     var source = document.getElementById("dashboard-template").innerHTML;
     Dashboard.template = Handlebars.compile(source);
 
+    var errorSource = document.getElementById("dashboard-error-template").innerHTML;
+    Dashboard.errorTemplate = Handlebars.compile(errorSource);
+
     Dashboard.spinner = document.getElementById("spinner");
 
     Dashboard.update();
@@ -19,7 +23,14 @@ var Dashboard = {
 
   renderBody: function(e) {
     var resp = JSON.parse(e.target.responseText);
-    document.getElementById("rendered-body").innerHTML = Dashboard.template(resp);
+
+    if (resp.error) {
+      html = Dashboard.errorTemplate(resp);
+    } else {
+      html = Dashboard.template(resp);
+    }
+    document.getElementById("rendered-body").innerHTML = html;
+
     Dashboard.toggleSpinner();
   },
 

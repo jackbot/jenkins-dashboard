@@ -15,6 +15,17 @@
 
   <body onload="Dashboard.init()">
 
+    <script id="dashboard-error-template" type="text/x-handlebars-template">
+      <div id="error">
+        <h1>Error</h1>
+        <p id="error-message">{{message}}</p>
+
+        <p id="error-full-message">
+          {{full_message}}
+        </p>
+      </div>
+    </script>
+
     <script id="dashboard-template" type="text/x-handlebars-template">
 
       <div class="container">
