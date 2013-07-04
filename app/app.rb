@@ -54,7 +54,6 @@ class Dashboard < Sinatra::Base
   end
 
   get '/ajax' do
-    puts jenkins_projects.inspect
     jenkins_projects.to_json
   end
 end
