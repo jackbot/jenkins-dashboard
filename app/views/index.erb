@@ -5,7 +5,7 @@
     <title>Jenkins Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+    <!-- <link href="/stylesheets/bootstrap.css" rel="stylesheet"> -->
     <link href="/stylesheets/dashboard.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/javascripts/handlebars-1.0.0.min.js"></script>
@@ -19,56 +19,66 @@
 
       <div class="container">
 
-        <div class="row-fluid">
+        <!--<div class="row-fluid">-->
 
           {{#each projects}}
 
-            <div class="box span4">
+            <div class="box">
               <div class="box-inner">
 
-                <h2><a href="{{url}}">{{name}}</a></h2>
+                <div class="box-top">
 
-                <p class="jenkins-build-result">
-                  {{#if builds}}
+                  <h2><a href="{{url}}">{{name}}</a></h2>
 
-                    {{#if builds.0.building}}
-                      <a class="building" href="{{builds.0.url}}">building</a>
+                  <p class="jenkins-build-result">
+                    {{#if builds}}
+
+                      {{#if builds.0.building}}
+                        <a class="building" href="{{builds.0.url}}">building</a>
+                      {{else}}
+                        <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
+                      {{/if}}
+
                     {{else}}
-                      <a class="{{builds.0.result}}" href="{{builds.0.url}}">{{builds.0.result}}</a>
+                      <span class="amber">n/a</span>
                     {{/if}}
-
-                  {{else}}
-                    <span class="amber">n/a</span>
-                  {{/if}}
-                </p>
-
-              </div>
-
-              <div class="box-bottom">
-                {{#if builds}}
-                  <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
-                    {{builds.0.nice_timestamp}}
                   </p>
-                {{else}}
-                  <p class="jenkins-build-timestamp">No builds yet</p>
-                {{/if}}
+                </div>
 
-                <p class="jenkins-build-result-history">
-                  {{#each builds}}
-                    <a class="{{result}}" href="{{url}}" title="{{timestamp}}">&#8226;</a>
-                  {{/each}}
-                </p>
+                <div class="box-bottom">
+                  {{#if builds}}
+                    <p class="jenkins-build-timestamp" title="{{current_build_timestamp}}">
+                      {{builds.0.nice_timestamp}}
+                    </p>
+                  {{else}}
+                    <p class="jenkins-build-timestamp">No builds yet</p>
+                  {{/if}}
+
+                  <p class="jenkins-build-result-history">
+                    {{#each builds}}
+                      <a class="{{result}}" href="{{url}}" title="{{timestamp}}">&#8226;</a>
+                    {{/each}}
+                  </p>
+
+                  <div class="clear"></div>
+                </div>
+
               </div>
+
             </div>
 
           {{/each}}
 
         </div>
-      </div>
+      <!--</div>-->
 
     </script>
 
     <div id="rendered-body"></div>
+
+    <div id="spinner" style="display: none;">
+      <img src="/images/spinner.gif" />
+    </div>
 
   </body>
 </html>
