@@ -1,6 +1,6 @@
 # Jenkins Dashboard
 
-A nice looking dashboard for your Jenkins projects.
+A nice looking dashboard for your Jenkins projects. It pulls in each of your projects and shows the current build state along with the state of the previous (up to) 5 builds. It's meant to be shown on an always-visible screen so it'll refresh itself every 10 seconds. Looks pretty reasonable on smaller browsers, too.
 
 
 ## Installation
